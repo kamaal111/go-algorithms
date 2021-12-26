@@ -5,51 +5,37 @@ import (
 	"testing"
 	"time"
 
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/extensions/table"
+	. "github.com/onsi/gomega"
+
 	"github.com/kamaal111/go-algorithms/utils"
 )
 
-func TestMergeSortOnevenSlice(t *testing.T) {
-	input := utils.NewSlice(0, 9, 1)
-	rand.Seed(time.Now().UnixNano())
-	rand.Shuffle(len(input), func(i, j int) { input[i], input[j] = input[j], input[i] })
+var _ = Describe("MergeSort", func() {
+	DescribeTable("Oneven slice", func(input []int, expectedResult []int) {
+		var result []int
+		utils.TimeIt("merge sort", func() { result = MergeSort(input) })
 
-	var got []int
-	utils.TimeIt("merge sort", func() { got = MergeSort(input) })
+		Expect(len(expectedResult)).To(Equal(len(result)))
+		Expect(result).To(Equal(expectedResult))
+	},
+		Entry("oneven", func() []int {
+			input := utils.NewSlice(0, 9, 1)
+			rand.Seed(time.Now().UnixNano())
+			rand.Shuffle(len(input), func(i, j int) { input[i], input[j] = input[j], input[i] })
+			return input
+		}(), utils.NewSlice(0, 9, 1)),
+		Entry("even", func() []int {
+			input := utils.NewSlice(0, 10, 1)
+			rand.Seed(time.Now().UnixNano())
+			rand.Shuffle(len(input), func(i, j int) { input[i], input[j] = input[j], input[i] })
+			return input
+		}(), utils.NewSlice(0, 10, 1)),
+	)
+})
 
-	want := utils.NewSlice(0, 9, 1)
-
-	if len(got) != len(want) {
-		t.Errorf("go %d as length, wanted %d", len(got), len(want))
-		return
-	}
-
-	for wantIndex, wantItem := range want {
-		if got[wantIndex] != wantItem {
-			t.Errorf("got %v, wanted %v", got[wantIndex], wantItem)
-			return
-		}
-	}
-}
-
-func TestMergeSortEvenSlice(t *testing.T) {
-	input := utils.NewSlice(0, 10, 1)
-	rand.Seed(time.Now().UnixNano())
-	rand.Shuffle(len(input), func(i, j int) { input[i], input[j] = input[j], input[i] })
-
-	var got []int
-	utils.TimeIt("merge sort", func() { got = MergeSort(input) })
-
-	want := utils.NewSlice(0, 10, 1)
-
-	if len(got) != len(want) {
-		t.Errorf("go %d as length, wanted %d", len(got), len(want))
-		return
-	}
-
-	for wantIndex, wantItem := range want {
-		if got[wantIndex] != wantItem {
-			t.Errorf("got %v, wanted %v", got, want)
-			return
-		}
-	}
+func TestMergeSort(t *testing.T) {
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "MergeSort Suite")
 }
