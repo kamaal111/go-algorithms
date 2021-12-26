@@ -18,9 +18,15 @@ func TestBubbleSort(t *testing.T) {
 
 	want := utils.NewSlice(0, 10, 1)
 
+	if len(got) != len(want) {
+		t.Errorf("go %d as length, wanted %d", len(got), len(want))
+		return
+	}
+
 	for wantIndex, wantItem := range want {
 		if got[wantIndex] != wantItem {
-			t.Errorf("got %d, wanted %d", got[wantIndex], wantItem)
+			t.Errorf("got %v, wanted %v", got, want)
+			return
 		}
 	}
 
