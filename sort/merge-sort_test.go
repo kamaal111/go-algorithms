@@ -2,7 +2,6 @@ package sort
 
 import (
 	"math/rand"
-	"testing"
 	"time"
 
 	. "github.com/onsi/ginkgo"
@@ -34,8 +33,3 @@ var _ = Describe("MergeSort", func() {
 		}(), utils.NewSlice(0, 10, 1)),
 	)
 })
-
-func TestMergeSort(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "MergeSort Suite")
-}
