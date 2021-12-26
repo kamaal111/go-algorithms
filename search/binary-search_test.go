@@ -1,33 +1,18 @@
 package search
 
 import (
-	"testing"
+	. "github.com/onsi/ginkgo/extensions/table"
+	. "github.com/onsi/gomega"
 
 	"github.com/kamaal111/go-algorithms/utils"
 )
 
-func TestBinarySearch(t *testing.T) {
-	input := utils.NewSlice(0, 1_000, 1)
+var _ = DescribeTable("BinarySearch", func(input []int, expectedResult int) {
+	var result int
+	utils.TimeIt("binary search", func() { result = BinarySearch(input, 77) })
 
-	var got int
-	utils.TimeIt("binary search", func() { got = BinarySearch(input, 77) })
-
-	want := 77
-
-	if got != want {
-		t.Errorf("got %d, wanted %d", got, want)
-	}
-}
-
-func TestBinarySearchTargetNotFound(t *testing.T) {
-	input := utils.NewSlice(0, 500, 2)
-
-	var got int
-	utils.TimeIt("binary search", func() { got = BinarySearch(input, 77) })
-
-	want := -1
-
-	if got != want {
-		t.Errorf("got %d, wanted %d", got, want)
-	}
-}
+	Expect(result).To(Equal(expectedResult))
+},
+	Entry("target found", utils.NewSlice(0, 1_000, 1), 77),
+	Entry("target not found", utils.NewSlice(0, 500, 2), -1),
+)
