@@ -5,9 +5,9 @@ import (
 )
 
 func TestBinarySearch(t *testing.T) {
-	input := NewSlice(0, 1_000_000, 1)
-	got := BinarySearch(input, 7777)
-	want := 7777
+	input := NewSlice(0, 1_000, 1)
+	got := BinarySearch(input, 77)
+	want := 77
 
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
@@ -15,8 +15,8 @@ func TestBinarySearch(t *testing.T) {
 }
 
 func TestBinarySearchTargetNotFound(t *testing.T) {
-	input := NewSlice(0, 1_000_000, 2)
-	got := BinarySearch(input, 7777)
+	input := NewSlice(0, 500, 2)
+	got := BinarySearch(input, 77)
 	want := -1
 
 	if got != want {
