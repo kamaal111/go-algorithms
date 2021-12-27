@@ -1,9 +1,6 @@
 package sort
 
 import (
-	"math/rand"
-	"time"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -12,9 +9,7 @@ import (
 
 var _ = Describe("BubbleSort", func() {
 	It("successfully sorts slice", func() {
-		input := NewSlice(0, 10, 1)
-		rand.Seed(time.Now().UnixNano())
-		rand.Shuffle(len(input), func(i, j int) { input[i], input[j] = input[j], input[i] })
+		input := ShuffleSlice(NewSlice(0, 10, 1))
 
 		var result []int
 		TimeIt("bubble sort", func() { result = BubbleSort(input) })
