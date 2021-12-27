@@ -4,11 +4,7 @@ func BinarySearch(input []int, target int) int {
 	lowerBound := 0
 	upperBound := len(input) - 1
 
-	for {
-		if lowerBound > upperBound {
-			break
-		}
-
+	for lowerBound <= upperBound {
 		middleIndex := (lowerBound + upperBound) / 2
 		middleValue := input[middleIndex]
 
