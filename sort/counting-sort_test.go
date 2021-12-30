@@ -7,9 +7,9 @@ import (
 	. "github.com/kamaal111/go-algorithms/utils"
 )
 
-var _ = DescribeTable("MergeSort", func(input []int, expectedResult []int) {
+var _ = DescribeTable("CountingSort", func(input []int, expectedResult []int) {
 	var result []int
-	TimeIt("merge sort", func() { result = MergeSort(input) })
+	TimeIt("count sort", func() { result = CountingSort(input) })
 
 	Expect(len(expectedResult)).To(Equal(len(result)))
 	Expect(result).To(Equal(expectedResult))
